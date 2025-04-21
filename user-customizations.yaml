@@ -2,7 +2,7 @@ $schema: "1.0"
 name: "my-customizations"
 # All tasks under tasks will be executed as LocalSystem during the provisioning stage of the Dev Box
 tasks:
-  # Install Node Version Switcher (NVS) using winget:
+  # Install Node Version Switcher (NVS)
   - name: ~/winget
     description: Install Node Version Switcher (NVS) available at https://github.com/jasongin/nvs
     parameters:
@@ -18,12 +18,6 @@ tasks:
       repositoryUrl: https://dev.azure.com/my-ad-org/my-project/_git/git-repo-name
       directory: C:\sources
       pat: '{{ado://my-ado-org}}'
-  - name: git-clone
-    description: Clone private repo
-    parameters:
-      repositoryUrl: https://dev.azure.com/my-ad-org/my-project/_git/git-repo-name
-      directory: C:\sources
-      pat: "{{ado://my-ado-org}}"
   - name: git-clone
     description: Clone public repository
     parameters:
