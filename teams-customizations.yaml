@@ -1,0 +1,17 @@
+$schema: "1.0"
+name: "myteam-image-definition"
+image: microsoftwindowsdesktop_windows-ent-cpc_win11-24H2-ent-cpc
+# if you need to use artifacts that are on available on your private network, you can set the network connection here that can connect to the private network.
+# this is optional and only needed if you are using private artifacts that are not available on the public internet.
+# The network connection name must be the same as the one you configured your project to use.
+#buildProperties:
+#  networkConnection: "<value>"
+tasks:
+  - name: ~/winget
+    parameters:
+      # Creates a new Dev Drive, Installs Git and Configure Git to use Default WAM account
+      downloadUrl: 'https://raw.githubusercontent.com/contoso-co/common-eng-sys/main/dsc-configurations/common-config.dsc.yaml'
+  - name: ~/winget
+    description: Install VSCode stable
+    parameters:
+      package: Microsoft.VisualStudioCode

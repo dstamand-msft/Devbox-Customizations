@@ -1,0 +1,74 @@
+$schema: "1.0"
+name: "my-customizations"
+# All tasks under tasks will be executed as LocalSystem during the provisioning stage of the Dev Box
+tasks:
+  # Install Node Version Switcher (NVS) using winget:
+  - name: ~/winget
+    description: Install Node Version Switcher (NVS) available at https://github.com/jasongin/nvs
+    parameters:
+      package: jasongin.nvs
+  - name: ~/winget
+    description: Install VSCode stable
+    parameters:
+      package: Microsoft.VisualStudioCode
+  # Clone repo: replace placeholders with your own values
+  - name: git-clone
+    description: Clone private repo
+    parameters:
+      repositoryUrl: https://dev.azure.com/my-ad-org/my-project/_git/git-repo-name
+      directory: C:\sources
+      pat: '{{ado://my-ado-org}}'
+  - name: git-clone
+    description: Clone private repo
+    parameters:
+      repositoryUrl: https://dev.azure.com/my-ad-org/my-project/_git/git-repo-name
+      directory: C:\sources
+      pat: "{{ado://my-ado-org}}"
+  - name: git-clone
+    description: Clone public repository
+    parameters:
+      repositoryUrl: https://github.com/OrchardCMS/OrchardCore.git
+      directory: C:\sources
+# All tasks under userTasks section will be executed as user after user’s first login to the Dev Box
+userTasks:
+  - name: ~/winget
+    description: Install Oh-My-Post
+    parameters:
+      package: JanDeDobbeleer.OhMyPosh
+  - name: ~/powershell
+    description: Install PowerShell modules
+    parameters:
+      command: |
+        Install-Module posh-git -Scope CurrentUser -Force
+        Iinstall-Module Terminal-Icons -Scope CurrentUser -Force
+  - name: ~/powershell
+    description: UTF8Profile
+    parameters:
+      command: |
+        $PsProfilePath = Join-Path "$Env:USERPROFILE\Documents" "Microsoft.PowerShell_profile.ps1"
+        if (!(Test-Path -Path $PsProfilePath)) {
+          New-Item -ItemType File -Path $PsProfilePath -Force
+        }
+        Add-Content -Path $PsProfilePath -Value "[console]::InputEncoding = [console]::OutputEncoding = New-Object System.Text.UTF8Encoding"
+        Add-Content -Path $PsProfilePath -Value "# Terminal-Icons$([System.Environment]::NewLine)Import-Module -Name Terminal-Icons"
+        Add-Content -Path $PsProfilePath -Value "# Git-Posh$([System.Environment]::NewLine)Import-Module posh-git"
+        Add-Content -Path $PsProfilePath -Value "# On-My-Posh$([System.Environment]::NewLine)oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\jandedobbeleer.omp.json" | Invoke-Expression"
+        Add-Content -Path $PsProfilePath -Value "# PS-ReadLine$([System.Environment]::NewLine)Set-PSReadLineOption -PredictionSource HistoryAndPlugin$([System.Environment]::NewLine)Set-PSReadLineOption -PredictionViewStyle ListView"
+  - name: ~/powershell
+    description: Install VSCode extensions
+    parameters:
+      command: |
+        $env:Path = [System.Environment]::GetEnvironmentVariable('Path','Machine') + ';' + [System.Environment]::GetEnvironmentVariable('Path','User')
+        code --install-extension GitHub.copilot
+        code --install-extension GitHub.copilot-chat
+        code --install-extension ms-azuretools.vscode-azure-github-copilot
+        code --install-extension humao.rest-client
+        code --install-extension ms-azuretools.vscode-bicep
+        code --install-extension devcenter.ms-devbox
+        code --install-extension redhat.vscode-xml
+        code --install-extension redhat.vscode-yaml
+        code --install-extenson ms-python.debugpy
+        code --install-extenson ms-python.python
+        code --install-extenson ms-python.vscode-pylance
+        code --install-extenson ms-vscode-remote.remote-wsl
+        code --install-extension ms-azure-devops.azure-pipelines
