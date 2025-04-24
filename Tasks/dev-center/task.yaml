@@ -1,7 +1,7 @@
 # This is a simple powershell command execution task for Dev Box.
 
 $schema: 1.0
-name: dev-center
+name: dev-drive
 description: Creates a Dev Drive
 author: Dominique St-Amand
 command: ".\\Main.ps1 -Command {{command}} -WorkingDirectory {{workingDirectory}}"
