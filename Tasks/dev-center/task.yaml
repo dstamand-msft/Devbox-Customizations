@@ -1,0 +1,38 @@
+# This is a simple powershell command execution task for Dev Box.
+
+$schema: 1.0
+name: dev-center
+description: Creates a Dev Drive
+author: Dominique St-Amand
+command: ".\\Main.ps1 -Command {{command}} -WorkingDirectory {{workingDirectory}}"
+parameters:
+  type:
+    type: string
+    default: "vhdx"
+    required: true
+    description: Whether to create a VHDX Dev Drive or resize the C drive. Options are "vhdx" or "resize".
+  driveLetter:
+    type: string
+    default: "Z"
+    required: true
+    description: The drive letter to assign to the Dev Drive.
+  size:
+    type: string
+    default: ""
+    required: true
+    description: The size of the Dev Drive in MB.
+documentation:
+  notes: This task is used to create a Dev Drive.
+  examples:
+    - name: dev-center
+      description: Creates a VHDX Dev Drive
+      parameters:
+        type: "vhdx"
+        driveLetter: "Z"
+        size: 102400 # 100GB
+    - name: dev-center
+      description: Creates a Dev Drive by resizing the C drive
+      parameters:
+        type: "resize"
+        driveLetter: "Z"
+        size: 102400 # 100GB
