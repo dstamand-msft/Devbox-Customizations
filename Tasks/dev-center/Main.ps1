@@ -48,8 +48,15 @@ switch ($Type) {
             Write-Error "ERROR: Drive letter $($DriveLetter): is already in use! Aborting..."
             exit 1
         }
-          
-        $diskPartFile = Join-Path -Path $env:TEMP -ChildPath "diskpart_devdrive.txt"
+        
+        # since this can run as localSystem or user (userTasks), we need to make sure there's a common ground
+        # localSystem doesn't have a profile and thus no temp folder
+        $tmpDir = Join-Path "C:\" "Temp"
+        if (!Test-Path $tmpDir) {
+            New-Item $tmpDir -Type Directory -Force | Out-Null
+        }
+
+        $diskPartFile = Join-Path -Path (Join-Path "C:\" "Temp") -ChildPath "diskpart_devdrive.txt"
 
         Write-Output "[*] Setting disk configuration settings..."
         $diskPartFileData = "create vdisk file='$vhdxFilePath' maximum=$DriveSize type=expandable`n" 
@@ -102,7 +109,7 @@ switch ($Type) {
         Register-ScheduledTask -TaskName $taskname -Description $taskdescription -Action $taskAction -Trigger $taskTrigger -Settings $taskSettings -User "System" -RunLevel Highest
           
         Write-Output "[*] Cleaning up..."
-        Remove-Item $diskPartFile
+        Remove-Item $tmpDir -Recurse -Force -ErrorAction SilentlyContinue
         
         Write-Output "[*] Done."
     }
