@@ -44,17 +44,13 @@ userTasks:
           New-Item -ItemType File -Path $PsProfilePath -Force
         }
 
-        $content1 = "[console]::InputEncoding = [console]::OutputEncoding = New-Object System.Text.UTF8Encoding"
-        $content2 = "# Terminal-Icons`nImport-Module -Name Terminal-Icons"
-        $content3 = "# Git-Posh`nImport-Module posh-git"
-        $content4 = "# On-My-Posh`noh-my-posh init pwsh --config $(Join-Path $env:POSH_THEMES_PATH "jandedobbeleer.omp.json") | Invoke-Expression"
-        $content5 = "# PS-ReadLine`nSet-PSReadLineOption -PredictionSource HistoryAndPlugin`nSet-PSReadLineOption -PredictionViewStyle ListView"
+        $content = "[console]::InputEncoding = [console]::OutputEncoding = New-Object System.Text.UTF8Encoding`n"
+        $content += "# Terminal-Icons`nImport-Module -Name Terminal-Icons`n"
+        $content += "# Git-Posh`nImport-Module posh-git`n"
+        $content += "# On-My-Posh`noh-my-posh init pwsh--config $(Join-Path $env:POSH_THEMES_PATH "jandedobbeleer.omp.json") | Invoke-Expression`n"
+        $content += "# PS-ReadLine`nSet-PSReadLineOption -PredictionSource HistoryAndPlugin`nSet-PSReadLineOption -PredictionViewStyle ListView`n"
 
-        Add-Content -Path $PsProfilePath -Value $content1
-        Add-Content -Path $PsProfilePath -Value $content2
-        Add-Content -Path $PsProfilePath -Value $content3
-        Add-Content -Path $PsProfilePath -Value $content4
-        Add-Content -Path $PsProfilePath -Value $content5
+        $content | Out-File -FilePath $PsProfilePath -Encoding utf8 -Force
   - name: ~/powershell
     description: Install VSCode extensions
     parameters:
