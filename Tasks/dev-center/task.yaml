@@ -4,7 +4,7 @@ $schema: 1.0
 name: dev-drive
 description: Creates a Dev Drive
 author: Dominique St-Amand
-command: ".\\Main.ps1 -Type {{type}} -DriveLetter {{driveLetter}} -Size {{size}}"
+command: ".\\Main.ps1 -Type {{type}} -DriveLetter {{driveLetter}} -DriveSize {{size}}"
 parameters:
   type:
     type: string
