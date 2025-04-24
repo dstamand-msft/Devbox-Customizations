@@ -27,7 +27,7 @@ param (
     [string]$Type,
 
     [Parameter(Mandatory = $true, HelpMessage = "The drive letter to mount the Dev Drive to")]
-    [ValidatePattern("^[A-Z]:$")]
+    [ValidatePattern("^[A-Z]$")]
     [string]$DriveLetter,
 
     [Parameter(Mandatory = $false, HelpMessage = "The size of the Dev Drive's")]
