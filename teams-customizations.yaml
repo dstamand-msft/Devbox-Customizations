@@ -7,11 +7,43 @@ image: microsoftwindowsdesktop_windows-ent-cpc_win11-24H2-ent-cpc
 #buildProperties:
 #  networkConnection: "<value>"
 tasks:
+  # example that uses winget DSC
   - name: ~/winget
     parameters:
-      # Creates a new Dev Drive, Installs Git and Configure Git to use Default WAM account
+      # Creates a new Dev Drive, Installs Git and Configure Git to use Default WAM account.
+      # Note that for WAM, in certain cloud hosted environments when using a work or school account, such as Microsoft Dev Box, this setting is automatically enabled.
       downloadUrl: 'https://raw.githubusercontent.com/contoso-co/common-eng-sys/main/dsc-configurations/common-config.dsc.yaml'
+  # example that uses the dev-drive task in this repository and regular winget
+  - name: dev-drive
+    description: Creates a VHDX dev drive
+    parameters:
+      type: vhdx
+      driveLetter: Y
+      size: 102400
+  - name: dev-drive
+    description: Creates a dev drive using resizing
+    parameters:
+      type: resize
+      driveLetter: Z
+      size: 51200
+  - name: ~/winget
+    description: Install Git
+    parameters:
+      package: Git.Git
+  - name: ~/winget
+    parameters:
+      package: Microsoft.VisualStudioCode      
   - name: ~/winget
     description: Install VSCode stable
     parameters:
       package: Microsoft.VisualStudioCode
+  - name: ~/powershell
+    description: Install Windows Sandbox
+    parameters:
+      command: |
+        $ProgressPreference = 'SilentlyContinue'
+        Enable-WindowsOptionalFeature -Online -FeatureName "Containers-DisposableClientVM" -All -Online -NoRestart -OutVariable result
+        if ($results.RestartNeeded -eq $true) {
+          #Restart-Computer -Force
+          Write-Output "Windows Sandbox feature installed. A restart of the computer is necessary to complete the installation."
+        }
