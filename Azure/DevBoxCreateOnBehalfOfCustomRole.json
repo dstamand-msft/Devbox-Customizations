@@ -1,0 +1,19 @@
+{
+    "properties": {
+        "roleName": "Projects_Users_DevBoxes_CreateOnBehalf ",
+        "description": "Allows a user to create a Dev Box on-behalf of another user.",
+        "assignableScopes": [
+            "/subscriptions/<subscription_id>"
+        ],
+        "permissions": [
+            {
+                "actions": [],
+                "notActions": [],
+                "dataActions": [
+                    "Microsoft.DevCenter/projects/users/devboxes/userCreateOnBehalf/action"
+                ],
+                "notDataActions": []
+            }
+        ]
+    }
+}
