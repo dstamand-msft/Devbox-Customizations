@@ -1,6 +1,6 @@
 {
     "properties": {
-        "roleName": "Projects_Users_DevBoxes_Approve ",
+        "roleName": "Dev Box User Manager Approve",
         "description": "Allows a manager to approve Dev Boxes on behalf of their directs.",
         "assignableScopes": [
             "/subscriptions/<subscription_id>"
