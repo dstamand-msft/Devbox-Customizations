@@ -1,19 +1,14 @@
 {
-    "properties": {
-        "roleName": "Dev Box User Manager Approve",
-        "description": "Allows a manager to approve Dev Boxes on behalf of their directs.",
-        "assignableScopes": [
-            "/subscriptions/<subscription_id>"
-        ],
-        "permissions": [
-            {
-                "actions": [],
-                "notActions": [],
-                "dataActions": [
-                    "Microsoft.DevCenter/projects/users/devboxes/approve/action"
-                ],
-                "notDataActions": []
-            }
-        ]
-    }
+    "Name": "Dev Box User Manager Approve",
+    "Description": "Allows a manager to approve Dev Boxes on behalf of their directs.",
+    "IsCustom": true,
+    "AssignableScopes": [
+        "/subscriptions/<subscription_id>"
+    ],
+    "Actions": [],
+    "NotActions": [],
+    "DataActions": [
+        "Microsoft.DevCenter/projects/users/devboxes/approve/action"
+    ],
+    "NotDataActions": []
 }
