@@ -45,7 +45,8 @@ userTasks:
         $0xprotoArtifact = $nerdfontsItems | Foreach-Object { $item = $_; $item.assets | Where-Object { $_.name -like "*0xProto.zip"} | Select-Object name, browser_download_url }
         Invoke-WebRequest -Uri $0xprotoArtifact.browser_download_url -OutFile $(Join-Path "$Env:USERPROFILE\Downloads" $0xprotoArtifact.name)
         Expand-Archive -Path $(Join-Path "$Env:USERPROFILE\Downloads" $0xprotoArtifact.name) -DestinationPath "$Env:USERPROFILE\Downloads\0xProto" -Force
-        & "$pwsh7" -command "Start-Process -FilePath `"$pwsh7`" -ArgumentList '-command `"Move-Item -Path `"$Env:USERPROFILE\Downloads\0xProto\*.ttf`" -Destination `"C:\Windows\Fonts`" -Force`"' -Verb RunAs -Wait"
+        # Install the 0xProto Nerd Font but requires a reboot
+        #& "$pwsh7" -command "Start-Process -FilePath `"$pwsh7`" -ArgumentList '-command `"Move-Item -Path `"$Env:USERPROFILE\Downloads\0xProto\*.ttf`" -Destination `"C:\Windows\Fonts`" -Force`"' -Verb RunAs -Wait"
         # TODO automate the font in the Windows Terminal profile:
         # "font": 
         #   {
