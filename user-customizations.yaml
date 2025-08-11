@@ -46,7 +46,14 @@ userTasks:
         Invoke-WebRequest -Uri $0xprotoArtifact.browser_download_url -OutFile $(Join-Path "$Env:USERPROFILE\Downloads" $0xprotoArtifact.name)
         Expand-Archive -Path $(Join-Path "$Env:USERPROFILE\Downloads" $0xprotoArtifact.name) -DestinationPath "$Env:USERPROFILE\Downloads\0xProto" -Force
         & "$pwsh7" -command "Start-Process -FilePath `"$pwsh7`" -ArgumentList '-command `"Move-Item -Path `"$Env:USERPROFILE\Downloads\0xProto\*.ttf`" -Destination `"C:\Windows\Fonts`" -Force`"' -Verb RunAs -Wait"
-  - name: ~/powershell        
+        # TODO automate the font in the Windows Terminal profile:
+        # "font": 
+        #   {
+        #     "face": "0xProto Nerd Font Mono"
+        #   }
+        Remove-Item -Path $(Join-Path "$Env:USERPROFILE\Downloads" $0xprotoArtifact.name)
+        Remove-Item -Path $(Join-Path "$Env:USERPROFILE\Downloads\0xProto") -Force -Recurse
+  - name: ~/powershell
     description: PowerShell Profile
     parameters:
       command: |
