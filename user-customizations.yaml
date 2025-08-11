@@ -47,7 +47,7 @@ userTasks:
         $content = "[console]::InputEncoding = [console]::OutputEncoding = New-Object System.Text.UTF8Encoding`n"
         $content += "# Terminal-Icons`nImport-Module -Name Terminal-Icons`n"
         $content += "# Git-Posh`nImport-Module posh-git`n"
-        $content += "# On-My-Posh`noh-my-posh init pwsh--config $(Join-Path $env:POSH_THEMES_PATH "jandedobbeleer.omp.json") | Invoke-Expression`n"
+        $content += "# On-My-Posh`noh-my-posh init pwsh--config `"$(Join-Path $env:POSH_THEMES_PATH "jandedobbeleer.omp.json")`" | Invoke-Expression`n"
         $content += "# PS-ReadLine`nSet-PSReadLineOption -PredictionSource HistoryAndPlugin`nSet-PSReadLineOption -PredictionViewStyle ListView`n"
 
         $content | Out-File -FilePath $PsProfilePath -Encoding utf8 -Force
